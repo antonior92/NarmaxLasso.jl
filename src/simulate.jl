@@ -57,6 +57,6 @@ end
 ## Simulate Narmax Regressors
 function simulate(u::Vector{Float64}, mdl::NarmaxRegressors,
                   β::Vector{Float64})
-    simulate(u, one_step_ahead, mdl.yterms, mdl.uterms, Vector{Int}(0),
+    simulate(u, one_step_ahead, mdl.yterms, mdl.uterms, mdl.vterms,
              mdl.basis, β)
 end

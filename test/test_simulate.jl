@@ -9,7 +9,7 @@ end
     y = NarmaxLasso.simulate(u, nonlinear_function, [1, 2], [1, 2], [1, 2], σv=0.1)
     @test y ≈ [0.0, 0.0, 0.318563, 0.480975, 0.134545, -0.139843, 0.458256,
                    0.603922, 0.422271, -0.0208464] rtol=1e-2
-        @test length(y) == length(u)
+    @test length(y) == length(u)
 end
 
 ## Test one step ahead
@@ -30,7 +30,6 @@ end
 @testset "Test simulate" begin
     mdl1 = NarmaxLasso.NarmaxRegressors([m1, m2, m3], [1], [1], [1])
     mdl2 = NarmaxLasso.NarmaxRegressors([m1, m2, m3], [1], [1, 2])
-
     u = NarmaxLasso.generate_random_input(20, 20)
     y = NarmaxLasso.simulate(u, mdl1, [0.5, 1, 0])
     @test (1-0.5)*y[end]/(u[end]^2) ≈ 1.0 rtol=1e-2
