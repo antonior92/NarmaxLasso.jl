@@ -1,5 +1,15 @@
 module NarmaxLasso
 
+export # Auxiliar functions
+       generate_random_input,
+       simulate,
+       # Lasso regressors
+       NarmaxRegressors,
+       generate_all,
+       # Lasso estimation
+       narmax_lasso,
+       LassoResult
+
 using RecipesBase
 using Combinatorics
 if isdir(Pkg.dir("GLMNet"))
