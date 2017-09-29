@@ -27,6 +27,7 @@ before_script: # homebrew for mac
 
 ## uncomment the following lines to override the default test script
 script:
+  - julia -e 'Pkg.add("GLMNet"); Pkg.build("GLMNet")'
   - julia -e 'Pkg.clone(pwd()); Pkg.build("NarmaxLasso"); Pkg.test("NarmaxLasso"; coverage=true)'
 after_success:
   # push coverage results to Coveralls

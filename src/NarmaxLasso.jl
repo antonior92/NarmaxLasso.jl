@@ -1,8 +1,13 @@
 module NarmaxLasso
 
 using RecipesBase
-using GLMNet
 using Combinatorics
+if isdir(Pkg.dir("GLMNet"))
+    eval(Expr(:import, :GLMNet))
+    const glmnet_loaded = true
+else
+    const glmnet_loaded = false
+end
 
 include("util.jl")
 include("basis_functions.jl")

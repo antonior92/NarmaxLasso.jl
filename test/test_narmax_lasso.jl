@@ -17,7 +17,19 @@ end
     @test result.β ≈ [0.0         -0.0398   0.0        0.1998   0.24836;
                       -1.552e-16  -0.4788  -0.49886  -0.4998  -0.499996;
                       0.0          0.0       0.0       -0.1996  -0.2484;
-                      0.0          0.43622   0.49973   0.89964   0.99671] rtol=1e-3
+                      0.0          0.43622   0.49973   0.89964   0.99671] rtol=1e-4
+
+    if NarmaxLasso.glmnet_loaded
+        result_glmnet = NarmaxLasso.narmax_lasso(y, u, mdl;
+            intercept=false, standardize=false, use_glmnet=true, nlambda=5)
+        @test result_glmnet.β ≈ [0.0 -0.13385 -0.010741 0.0 0.0349759;
+                                 0.0 -0.432755 -0.493341 -0.498908 -0.499592;
+                                 0.0 0.0 0.0 0.0 -0.0340471;
+                                 0.0 0.289839 0.481891 0.499722 0.569338] rtol=1e-4
+    else
+        @test_throws(ArgumentError,
+         result_glmnet = NarmaxLasso.narmax_lasso(y, u, mdl; use_glmnet=true))
+    end
 end
 
 ## Test ARMAX model

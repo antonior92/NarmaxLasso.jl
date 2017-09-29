@@ -13,14 +13,14 @@
 
     # Test for a single value
     λ = 0.001
-    path = glmnet(Xn, yn; lambda=[λ], intercept=false, standardize=false,
+    path = GLMNet.glmnet(Xn, yn; lambda=[λ], intercept=false, standardize=false,
               tol=1e-20)
     β, _ = NarmaxLasso.pathwise_coordinate_optimization(Xn, yn, λ, tol=1e-20)
     @test vec(Matrix{Float64}(path.betas)) ≈ β atol=1e-5
 
     # Test for multiple value
     λ_list = collect(100:-1:1)*0.01
-    path = glmnet(Xn, yn; lambda=λ_list, intercept=false,
+    path = GLMNet.glmnet(Xn, yn; lambda=λ_list, intercept=false,
               standardize=false, tol=1e-20)
     β, _ = NarmaxLasso.pathwise_coordinate_optimization(Xn, yn, λ_list, tol=1e-20)
     @test Matrix{Float64}(path.betas) ≈ β atol=1e-5
@@ -51,12 +51,14 @@ end
     X = X./norm_x
     # Test single point
     λ = 1e-5
-    path = glmnet(X, y, lambda=[λ], intercept=false, standardize=false, tol=1e-20)
+    path = GLMNet.glmnet(X, y, lambda=[λ], intercept=false,
+                        standardize=false, tol=1e-20)
     β, λ= NarmaxLasso.pathwise_coordinate_optimization(X, y, λ, tol=1e-15)
     @test vec(Matrix{Float64}(path.betas)) ≈ β atol=1e-5
     # Test sequence of points
     λ = collect(100:-1:1)*0.00001
-    path = glmnet(X, y, lambda=λ, intercept=false, standardize=false, tol=1e-20)
+    path = GLMNet.glmnet(X, y, lambda=λ, intercept=false,
+                         standardize=false, tol=1e-20)
     β, λ= NarmaxLasso.pathwise_coordinate_optimization(X, y, λ, tol=1e-15)
     @test Matrix{Float64}(path.betas) ≈ β atol=1e-5
 end

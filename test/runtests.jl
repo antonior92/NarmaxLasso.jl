@@ -1,6 +1,12 @@
+if isdir(Pkg.dir("GLMNet"))
+    eval(Expr(:import, :GLMNet))
+    const glmnet_loaded = true
+else
+    const glmnet_loaded = false
+end
 import NarmaxLasso
 using Base.Test
-using GLMNet
+
 
 ## Test utility functions
 @testset "Test utility functions" begin
@@ -24,7 +30,9 @@ end
 
 ## Test pathwise coordinate descent
 @testset "Test pathwise coordinate descent algorithm" begin
-    include("test_pathwise_coordinate_descent.jl")
+    if glmnet_loaded
+        include("test_pathwise_coordinate_descent.jl")
+    end
 end
 
 ## Test Narmax Lasso estimation

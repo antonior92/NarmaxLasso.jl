@@ -53,10 +53,13 @@ function subviews2matrix{T<:Any}(X_views::Vector{Vector{T}}, N, p)
 end
 
 # Convert Compressed Predictor Matrix to matrix
-function Base.convert(::Type{Matrix{Float64}}, X::CompressedPredictorMatrix)
-    mat = zeros(X.ni, length(X.nin))
-    for b = 1:size(mat, 2), i = 1:X.nin[b]
-        mat[X.ia[i], b] = X.ca[i, b]
+if glmnet_loaded
+    function Base.convert(::Type{Matrix{Float64}},
+                          X::GLMNet.CompressedPredictorMatrix)
+        mat = zeros(X.ni, length(X.nin))
+        for b = 1:size(mat, 2), i = 1:X.nin[b]
+            mat[X.ia[i], b] = X.ca[i, b]
+        end
+        return mat
     end
-    return mat
 end

@@ -7,7 +7,6 @@ struct LassoResult
     total_iter::Int
 end
 
-
 # Update noise terms
 function update_noise_terms!(
         X::Vector{Vector{Float64}}, i::Int, N::Int, r::Vector{Float64},
@@ -45,16 +44,20 @@ function narmax_lasso(y::Vector{Float64}, u::Vector{Float64},
     # Pathwise coordinate descent
     tic()
     if use_glmnet
-        if isempty(mdl.vterms)
-            path = glmnet(X, y, intercept=false,
+        if isempty(mdl.vterms) && glmnet_loaded
+            path = GLMNet.glmnet(X, y, intercept=false,
                           standardize=false, tol=1e-8; kwargs...)
             β = Matrix{Float64}(path.betas)
             λ = path.lambda
             df_matrix = [sum(β[:, i].==0) for i = 1:length(λ)]
             total_iter = path.npasses
+        elseif ~glmnet_loaded
+            throw(ArgumentError(string("GlMNet not installed. Run:\n",
+                                "\tjulia> Pkg.add(\"GLMNet\")\n",
+                                "\tjulia> Pkg.build(\"GLMNet\")")))
         else
-            throw(ArgumentError("GLMNet can only be used when there ",
-                                 "is no noise terms present"))
+            throw(ArgumentError(string("GLMNet can only be used when there ",
+                                 "is no noise terms present")))
         end
     else
         β, λ, df_matrix, total_iter = pathwise_coordinate_optimization(
@@ -62,7 +65,7 @@ function narmax_lasso(y::Vector{Float64}, u::Vector{Float64},
                 (mdl.noise_components_starts, mdl.noise_terms_starts, mdl.vterms,
                  mdl.basis, Y_views, n); kwargs...)
     end
-    time = toc()
+    time = toq()
     return LassoResult(mdl, β, λ, df_matrix,
                        time, total_iter)
 end
