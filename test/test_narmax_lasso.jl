@@ -1,6 +1,3 @@
-using Plots
-plotlyjs()
-
 ## Test ARX model
 function arx_mdl(y, u)
     return (0.5*y[1] - 0.5*u[1])
