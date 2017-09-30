@@ -65,5 +65,5 @@ Usually the value of λ is chosen by testing on a validation set.
 Folder ``examples`` contains two complete usage examples.
 
 So far the above estimation procedure is implemented
-only for linear and polynomial models. More implementations should
+only for linear and polynomial models. More options should
 be included latter.
