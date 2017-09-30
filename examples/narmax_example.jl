@@ -3,6 +3,7 @@
 # Antonio H. Ribeiro and Luis A. Aguirre
 using NarmaxLasso
 using Plots
+plotlyjs()
 
 ## Signal generation
 # Defining nonlinear system
@@ -26,12 +27,10 @@ ny = 3
 nu = 3
 nv = 2
 order = collect(1:2)
-mdl = NarmaxLasso.generate_all(NarmaxLasso.NarmaxRegressors,
-                                NarmaxLasso.Monomial,
-                                ny, nu, nv, order)
+mdl = generate_all(NarmaxRegressors, Monomial, ny, nu, nv, order)
 
 # Lasso regression
-result = NarmaxLasso.narmax_lasso(y, u, mdl; λ_min_ratio=1e-6)
+result = narmax_lasso(y, u, mdl; λ_min_ratio=1e-6)
 
 # Plot result
 p1 = plot(result, xscale=:log10, ylims=(-1.2, 1.2))
@@ -46,7 +45,7 @@ yv = simulate(uv, nonlinear_function, yterms0, uterms0, vterms0;
 n = length(result.λ)
 mae = Vector{Float64}(n)
 for i = 1:n
-    ysv = NarmaxLasso.simulate(uv, result.mdl, result.β[:, i])
+    ysv = simulate(uv, result.mdl, result.β[:, i])
     mae[i] = mean(abs(ysv-yv))
 end
 vline!(p1, [result.λ[indmin(mae)]], color=:black, line=:dash)

@@ -8,7 +8,10 @@ export # Auxiliar functions
        generate_all,
        # Lasso estimation
        narmax_lasso,
-       LassoResult
+       LassoResult,
+       # Basis
+       Basis,
+       Monomial
 
 using RecipesBase
 using Combinatorics
