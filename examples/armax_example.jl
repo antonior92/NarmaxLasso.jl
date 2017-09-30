@@ -3,8 +3,6 @@
 # Antonio H. Ribeiro and Luis A. Aguirre
 using NarmaxLasso
 using Plots
-using LaTeXStrings
-plotlyjs()
 
 ## Signal generation
 # Defining nonlinear system
