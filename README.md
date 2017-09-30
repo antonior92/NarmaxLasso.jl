@@ -23,3 +23,42 @@ The package installation can be tested using the command:
 ```JULIA
 julia> Pkg.test("NarmaxLasso")
 ```
+
+## Overview
+
+This package allows the estimation of parameters of discrete
+dynamic models from observed data.
+
+For instance, consider vectors of observed inputs and
+outputs: ``u`` and ``y``. Assume, for instance, we want
+to fit the following model to the observed data:
+```
+y[k] = β[1]*y[k-1] + β[2]*u[k-1] + β[3]*v[k-1] + v[k]
+```
+this can be done by the following command sequence:
+```JULIA
+julia> using NarmaxLasso
+julia> mdl = generate_all(NarmaxRegressors, Monomial, 1, 1, 1, 1)
+    u[k-1]
+    y[k-1]
+    v[k-1]
+julia> result = narmax_lasso(y, u, mdl); # Assuming predefined u and y
+```
+Be 𝐞 the error between the model prediction and the observed values,
+the result of the above command sequence provides the solution of
+the following minimization problem:
+```
+min_β ||𝐞||^2 + λ * ∑ |β[i]|
+```
+for a grid of values of λ.
+
+The output can be visualized using:
+```JULIA
+julia> using Plots
+julia> plotlyjs()
+julia> plot(result)
+```
+A possible output would be:
+![example.png](example.png)
+
+Folder ``examples`` contains two complete usage examples
