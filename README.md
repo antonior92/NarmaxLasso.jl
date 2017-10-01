@@ -44,11 +44,11 @@ julia> mdl = generate_all(NarmaxRegressors, Monomial, 1, 1, 1, 1)
     v[k-1]
 julia> result = narmax_lasso(y, u, mdl); # Assuming predefined u and y
 ```
-Be 𝐞 the error between the model prediction and the observed values,
+Be ``e`` the error between the model prediction and the observed values,
 the result of the above command sequence provides the solution of
 the following minimization problem:
 ```
-min_β ||𝐞||^2 + λ * ∑ |β[i]|
+min_β ||e||^2 + λ * ∑ |β[i]|
 ```
 for a grid of values of λ.
 
