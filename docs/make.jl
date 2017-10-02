@@ -13,7 +13,7 @@ makedocs(
 )
 
 deploydocs(
-    repo = "https://github.com/antonior92/NarmaxLasso.jl.git",
+    repo = "github.com/antonior92/NarmaxLasso.jl.git",
     target = "build",
     julia = "0.6",
     osname = "linux",
