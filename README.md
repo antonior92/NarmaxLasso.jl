@@ -5,8 +5,11 @@
 [![Coverage Status](https://coveralls.io/repos/antonior92/NarmaxLasso.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/antonior92/NarmaxLasso.jl?branch=master)
 [![codecov.io](http://codecov.io/github/antonior92/NarmaxLasso.jl/coverage.svg?branch=master)](http://codecov.io/github/antonior92/NarmaxLasso.jl?branch=master)
 
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://antonior92.github.io/NarmaxLasso.jl/stable)
+[![](https://img.shields.io/badge/docs-latest-blue.svg)](https://antonior92.github.io/NarmaxLasso.jl/latest)
+
 This package provides a method for computing the parameters of NARMAX
-(*Nonlinear autoregressive moving average model with exogenous inputs*)
+(*Nonlinear autoregressive moving average with exogenous inputs*)
 models subject to L1 penalty using pathwise coordinate optimization algorithm.
 
 
@@ -26,19 +29,19 @@ julia> Pkg.test("NarmaxLasso")
 
 ## Overview
 
-This package allows the estimation of parameters of discrete
-dynamic models from observed data.
+This package allows the estimation of parameters of discrete dynamic models from observed data.
 
 For instance, consider vectors of observed inputs and
 outputs: ``u`` and ``y``. Assume, for instance, we want
 to fit the following model to the observed data:
 ```
-y[k] = β[1]*y[k-1] + β[2]*u[k-1] + β[3]*v[k-1] + v[k]
+y[k] = β[1]*y[k-1] + β[2]*u[k-1] + β[3]*v[k-1]
 ```
 this can be done by the following command sequence:
 ```JULIA
 julia> using NarmaxLasso
-julia> mdl = generate_all(NarmaxRegressors, Monomial, 1, 1, 1, 1)
+julia> ny = 1; nu = 1; nv = 1; order = 1;
+julia> mdl = generate_all(NarmaxRegressors, Monomial, ny, nu, nv, order)
     u[k-1]
     y[k-1]
     v[k-1]
@@ -55,7 +58,6 @@ for a grid of values of λ.
 The output can be visualized using:
 ```JULIA
 julia> using Plots
-julia> plotlyjs()
 julia> plot(result)
 ```
 A possible output would be:

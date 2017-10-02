@@ -1,4 +1,9 @@
 ## Narmax regressors
+"""
+    NarmaxRegressors{T<:Basis}(basis::Vector{T}, yterms, uterms[, vterms])
+
+Describe regressors to be used on a NARMAX estimation problem.
+"""
 struct NarmaxRegressors{T<:Basis}
     basis::Vector{T}
     noise_components_starts::Int
@@ -57,6 +62,17 @@ function regressor_matrix(reg::NarmaxRegressors,
 end
 
 ## Generate all terms
+"""
+    generate_all(::Type{NarmaxRegressors}, ::Type{Monomials}, ny, nu, nv, order)
+
+Generate a set of regressors containing all monomials:
+```math
+\\left(y[k-q_i] \\right)^{l_i} \\left(u[k-t_i] \\right)^{r_i}
+\\left(e[k-w_i] \\right)^{s_i}
+```
+for which: ``1\\le q_i \\le n_y``; ``1 \\le t_i \\le n_u``;
+ ``1 \\le w_i \\le n_e``; and, ``l_i + r_i + s_i = \\text{order}[i]``.
+"""
 function generate_all{T<:Basis}(::Type{NarmaxRegressors}, ::Type{T},
                                 ny::Int, nu::Int, nv::Int, args...; kwargs...)
     basis = generate_all(T, ny+nu+nv, args...; kwargs...)

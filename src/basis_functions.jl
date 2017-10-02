@@ -1,4 +1,15 @@
 ## Basis
+"""
+    Basis
+
+A `basis` function is an element of a particular basis for a function space.
+Every continuous function in the function space can be represented as a
+linear combination of basis functions:
+```math
+f(x_1, \\cdots, x_n) = \\sum_i \\beta_i\\text{basis}_i(x_1, \\cdots, x_n)
+```
+So far the only implemented basis is [`Monomial`](@ref).
+"""
 abstract type Basis end
 
 # evaluate : Matrix -> vector

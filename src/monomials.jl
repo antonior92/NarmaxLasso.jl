@@ -1,4 +1,16 @@
 ## Monomial
+"""
+    Monomial(exponents)
+
+A `Monomial` function is a product of powers of variables with nonnegative
+integer exponents.
+```math
+x_1^{p_1} * x_2^{p_2} *\\cdots * x_n^{p_n}
+```
+The `Monomial` is defined using a vector of integers `exponents`.
+This vector contains the correspondent exponents ``p``
+for all the inputs from `1` to `n`.
+"""
 struct Monomial <: Basis
     exponents::Vector{Int}
     n::Int

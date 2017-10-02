@@ -1,3 +1,18 @@
+"""
+    LassoResult
+
+Result of lasso estimation for a grid of values of regularization
+parameter. Contains:
+
+| Atributes | Type               | Brief Description                                            |
+|:--------- |:------------------ |:------------------------------------------------------------ |
+| mdl       | `NarmaxRegressors` | Regressors                                                   |
+| λ         | `Matrix{Float64}`  | Sequence of regularization parameters λ                      |
+| β         | `Matrix{Float64}`  | Parameter vectors arranged columnwise, for the sequence of λ |
+| df        | `Matrix{Int}`      | Number of nonzero terms for the sequence of λ                |
+| time      | `Float64`          | Execution time                                               |
+| total_iter| `Int`              | Total number of internal iterations                          |
+"""
 struct LassoResult
     mdl::NarmaxRegressors
     β::Matrix{Float64}
@@ -32,6 +47,20 @@ function update_basis_matrix!{T<:Basis}(
 end
 
 ## Narmax Lasso function
+"""
+    narmax_lasso(y, u, mdl::NarmaxRegressors[; use_glmnet]) -> r::LassoResult
+
+Given input and output signals `u` and `y`, and a structure `mdl` specifying
+the regressors through a structure [`NarmaxRegressors`](@ref). Find the solution
+of the lasso problem:
+```math
+\\min_\\beta ||\\mathbf{e}||^2 + \\lambda * \\sum_{i} |\\beta_i|
+```
+for a grid of values of the regularization parameter ``\\lambda``. Return
+a [`LassoResult`](@ref) structure containing the obtained values. The option
+`use_glmnet=true` changes the internal solver to GLMNet (only available
+when no noise term is present).
+"""
 function narmax_lasso(y::Vector{Float64}, u::Vector{Float64},
                       mdl::NarmaxRegressors; use_glmnet=false,
                       kwargs...)

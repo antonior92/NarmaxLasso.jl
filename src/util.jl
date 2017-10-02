@@ -1,5 +1,13 @@
 function identity!(args...); end;
 
+"""
+    generate_random_input(n [, nrep=5][; σ=1, seed=1]) -> u
+
+Generate a vector ``u`` containing a random signal. The values are draw from a
+zero-mean Gaussian distribution with standard deviation `σ` and held for `nrep`
+samples. The random number generator is initialized with `seed`, during the
+generation.
+"""
 function generate_random_input(n, nrep=5; σ=1, seed=1)
     srand(seed)
     u = σ*randn(Int(n//nrep));

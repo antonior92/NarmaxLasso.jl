@@ -34,3 +34,5 @@ after_success:
   - julia -e 'cd(Pkg.dir("NarmaxLasso")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'
   # push coverage results to Codecov
   - julia -e 'cd(Pkg.dir("NarmaxLasso")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
+  # Generate documentation
+  - julia -e 'Pkg.add("Documenter"); cd(Pkg.dir("PACKAGE_NAME")); include(joinpath("docs", "make.jl"))'
