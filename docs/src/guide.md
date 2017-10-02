@@ -24,7 +24,7 @@ y[k] = \beta_1 y[k-1] + \beta_2 u[k-1] + \beta_3 v[k-1]
 ```
 where the parameters ``\beta_1``, ``\beta_2`` and ``\beta_3`` are unknown. The noise term ``v[k-1]`` is included to model the random effects that affects the observation.
 
-The estimation can be done in two steps. The first step consists of generating the regressors to the problem, which can be done using the command `generate_all` by the following command sequence:
+The estimation can be done in two steps. The first step consists of generating the regressors to the problem, which can be done using the command [`generate_all`](@ref) by the following command sequence:
 
 ```julia
 julia> ny = 1; nu = 1; nv = 1; order = 1;
@@ -34,7 +34,7 @@ y[k-1]
 v[k-1]
 ```
 
-Next the command `narmax_lasso` can be used to solve, for a grid of values of ``\lambda``, the following minimization problem:
+Next the command [`narmax_lasso`](@ref) can be used to solve, for a grid of values of ``\lambda``, the following minimization problem:
 ```math
 \min_\beta ||\mathbf{e}||^2 + \lambda * \sum_{i=1}^3 |\beta_i|
 ```
@@ -51,6 +51,8 @@ A possible output would be:
 
 ![](./plots/ARMAXPaths.png)
 
+The value of λ may be chosen by testing the models on a validation set.
+
 ##  Polynomial Model
 Now assume that the following polynomial model:
 ```math
@@ -59,7 +61,7 @@ Now assume that the following polynomial model:
 ```
 is to be adjusted to a data set. For which the monomials included as regressors are all possible monomials for which: ``1\le q_i \le n_y``; ``1 \le t_i \le n_u``; ``1 \le w_i \le n_e``; and, ``l_i + r_i + s_i \le \text{order}``.
 
-All possible monomials can be generated using the command `generate_all`. For ``n_y=2``, ``n_u=1``, ``n_v=1`` and ``\text{order}=2`` the generated terms are:
+All possible monomials can be generated using the command [`generate_all`](@ref). For ``n_y=2``, ``n_u=1``, ``n_v=1`` and ``\text{order}=2`` the generated terms are:
 ```julia
 julia> ny = 2; nu = 1; nv = 1; order = 1:2;
 julia> mdl = generate_all(NarmaxRegressors, Monomial, ny, nu, nv, order)
@@ -79,7 +81,7 @@ y[k-2] * v[k-1]
 y[k-1] * v[k-1]
 ```
 
-Again the command `narmax_lasso` can be used to solve the lasso regression problem  for a grid of values of ``\lambda``:
+Again the command [`narmax_lasso`](@ref) can be used to solve the lasso regression problem  for a grid of values of ``\lambda``:
 ```julia
 julia> result = narmax_lasso(y, u, mdl);
 ```
@@ -91,3 +93,5 @@ julia> plot(result, xscale=:log10)
 A possible output would be:
 
 ![](./plots/NARMAXPaths.png)
+
+Again, the value of λ may be chosen by testing the models on a validation set.
