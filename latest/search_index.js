@@ -17,6 +17,14 @@ var documenterSearchIndex = {"docs": [
 },
 
 {
+    "location": "index.html#Reference-1",
+    "page": "Home",
+    "title": "Reference",
+    "category": "section",
+    "text": "Both the implementation and the examples are originally from the paper:\"Lasso Regularization Paths for NARMAX Models via Coordinate Descent\"\nAntonio H. Ribeiro and Luis A. AguirrePreprint available in arXiv (here)BibTeX entry:@article{ribeiro_lasso_2017,\n  title = {Lasso {{Regularization Paths}} for {{NARMAX Models}} via {{Coordinate Descent}}},\n  abstract = {We propose a new algorithm for estimating NARMAX models with L1 regularization for models represented as a linear combination of basis functions. Due to the L1-norm penalty the Lasso estimation tends to produce some coefficients that are exactly zero and hence gives interpretable models. The proposed algorithm uses cyclical coordinate descent to compute the parameters of the NARMAX models for the entire regularization path and, to the best of the authors knowledge, it is first the algorithm to allow the inclusion of error regressors in the Lasso estimation. This is made possible by updating the regressor matrix along with the parameter vector. In comparative timings we find that this modification does not harm the global efficiency of the algorithm and can provide the most important regressors in very few inexpensive iterations. The method is illustrated for linear and polynomial models by means of two examples.},\n  timestamp = {2017-10-03T01:54:30Z},\n  archivePrefix = {arXiv},\n  eprinttype = {arxiv},\n  eprint = {1710.00598},\n  primaryClass = {cs, stat},\n  journal = {arXiv:1710.00598 [cs, stat]},\n  author = {Ribeiro, Ant{\\^o}nio H. and Aguirre, Luis A.},\n  month = oct,\n  year = {2017},\n  keywords = {Computer Science - Systems and Control,Statistics - Machine Learning}\n}"
+},
+
+{
     "location": "index.html#Manual-Outline-1",
     "page": "Home",
     "title": "Manual Outline",
