@@ -12,6 +12,8 @@ This package provides a method for computing the parameters of NARMAX
 (*Nonlinear autoregressive moving average with exogenous inputs*)
 models subject to L1 penalty using pathwise coordinate optimization algorithm.
 
+**It was tested only in Julia 0.6.**
+
 
 ## Installation
 
